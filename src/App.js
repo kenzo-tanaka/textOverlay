@@ -25,6 +25,8 @@ class App extends Component {
     this.setState({ text });
   };
 
+  handleDownload = () => {};
+
   handleFontWeight = () => {
     const fontWeight = this.state.bold;
     if (fontWeight === "")
@@ -42,9 +44,9 @@ class App extends Component {
 
   handleToSmall = () => {
     const fontSize = this.state.fontSize;
-    if (fontSize !== "30") {
+    if (fontSize !== "25") {
       this.setState({
-        fontSize: "30",
+        fontSize: "25",
         largeel: "bg-white",
         smallel: "bg-blue-500 text-white"
       });
@@ -160,7 +162,8 @@ class App extends Component {
               this.state.text
             },co_rgb:333,w_500,c_fit/v1560056946/Dinamic_OGP_t8joyp.png`}
             className="text-white"
-            download
+            download="test.png"
+            onClick={this.handleDownload}
             target="_blank"
             rel="noopener noreferrer"
           >
@@ -191,7 +194,7 @@ class App extends Component {
             onChange={this.onChange}
             name="text"
             value={text}
-            rows="5"
+            rows="3"
           />
         </div>
         <div className="mt-5 text-center">
