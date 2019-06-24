@@ -16,16 +16,20 @@ class App extends Component {
     boldel: "bg-white",
     fontSize: "50",
     smallel: "bg-white",
-    largeel: "bg-white"
-    // 30 50 70
+    largeel: "bg-white", // 25 50 70
+    replacedText: ""
   };
 
   onChange = e => {
     let text = e.target.value;
-    this.setState({ text });
+    let replacedText;
+    if (text.includes("\n")) {
+      replacedText = text.replace(/\n/g, "%0A");
+      this.setState({ text: text, replacedText: replacedText });
+    } else {
+      this.setState({ text });
+    }
   };
-
-  handleDownload = () => {};
 
   handleFontWeight = () => {
     const fontWeight = this.state.bold;
@@ -76,11 +80,6 @@ class App extends Component {
   };
 
   render() {
-    let { text } = this.state;
-    let newText;
-    if (text.includes("\n")) {
-      newText = text.replace("\n", "%0A");
-    }
     const defaultImgNode = (
       <Fragment>
         <img
@@ -90,7 +89,7 @@ class App extends Component {
         />
         <div className="text-right">
           <button
-            class="mt-3 bg-blue-500 text-white font-bold py-2 px-4 rounded-full opacity-50 cursor-not-allowed"
+            className="mt-3 bg-blue-500 text-white font-bold py-2 px-4 rounded-full opacity-50 cursor-not-allowed"
             disabled
           >
             Download
@@ -100,14 +99,14 @@ class App extends Component {
     );
     const textImgNode = (
       <Fragment>
-        {text.includes("\n") ? (
+        {this.state.text.includes("\n") ? (
           <img
             className="w-full shadow"
             src={`https://res.cloudinary.com/dynugozpy/image/upload/l_text:Sawarabi%20Gothic_${
               this.state.fontSize
-            }_${
-              this.state.bold
-            }:${newText},co_rgb:333,w_500,c_fit/v1560056946/Dinamic_OGP_t8joyp.png`}
+            }_${this.state.bold}:${
+              this.state.replacedText
+            },co_rgb:333,w_500,c_fit/v1560056946/Dinamic_OGP_t8joyp.png`}
             alt="defaultImg"
           />
         ) : (
@@ -115,9 +114,9 @@ class App extends Component {
             className="w-full shadow"
             src={`https://res.cloudinary.com/dynugozpy/image/upload/l_text:Sawarabi%20Gothic_${
               this.state.fontSize
-            }_${
-              this.state.bold
-            }:${text},co_rgb:333,w_500,c_fit/v1560056946/Dinamic_OGP_t8joyp.png`}
+            }_${this.state.bold}:${
+              this.state.text
+            },co_rgb:333,w_500,c_fit/v1560056946/Dinamic_OGP_t8joyp.png`}
             alt="defaultImg"
           />
         )}
@@ -178,7 +177,7 @@ class App extends Component {
       <Fragment>
         <div className="mt-5 max-w-4xl mx-auto">
           <div className="">
-            {text === "" ? (
+            {this.state.text === "" ? (
               <Fragment>{defaultImgNode}</Fragment>
             ) : (
               <Fragment>{textImgNode}</Fragment>
@@ -193,7 +192,7 @@ class App extends Component {
             placeholder="Input here!"
             onChange={this.onChange}
             name="text"
-            value={text}
+            value={this.state.text}
             rows="3"
           />
         </div>
