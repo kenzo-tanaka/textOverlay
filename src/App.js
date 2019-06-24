@@ -21,9 +21,8 @@ class App extends Component {
   };
 
   onChange = e => {
-    const state = this.state;
-    state[e.target.name] = e.target.value;
-    this.setState(state);
+    let text = e.target.value;
+    this.setState({ text });
   };
 
   handleFontWeight = () => {
@@ -75,7 +74,11 @@ class App extends Component {
   };
 
   render() {
-    const { text } = this.state;
+    let { text } = this.state;
+    let newText;
+    if (text.includes("\n")) {
+      newText = text.replace("\n", "%0A");
+    }
     const defaultImgNode = (
       <Fragment>
         <img
@@ -95,15 +98,27 @@ class App extends Component {
     );
     const textImgNode = (
       <Fragment>
-        <img
-          className="w-full shadow"
-          src={`https://res.cloudinary.com/dynugozpy/image/upload/l_text:Sawarabi%20Gothic_${
-            this.state.fontSize
-          }_${this.state.bold}:${
-            this.state.text
-          },co_rgb:333,w_500,c_fit/v1560056946/Dinamic_OGP_t8joyp.png`}
-          alt="defaultImg"
-        />
+        {text.includes("\n") ? (
+          <img
+            className="w-full shadow"
+            src={`https://res.cloudinary.com/dynugozpy/image/upload/l_text:Sawarabi%20Gothic_${
+              this.state.fontSize
+            }_${
+              this.state.bold
+            }:${newText},co_rgb:333,w_500,c_fit/v1560056946/Dinamic_OGP_t8joyp.png`}
+            alt="defaultImg"
+          />
+        ) : (
+          <img
+            className="w-full shadow"
+            src={`https://res.cloudinary.com/dynugozpy/image/upload/l_text:Sawarabi%20Gothic_${
+              this.state.fontSize
+            }_${
+              this.state.bold
+            }:${text},co_rgb:333,w_500,c_fit/v1560056946/Dinamic_OGP_t8joyp.png`}
+            alt="defaultImg"
+          />
+        )}
 
         {/* Handle fontWeight , size */}
         <div className="text-left inline-block">
@@ -138,19 +153,21 @@ class App extends Component {
           </div>
         </div>
         <div className="inline-block float-right">
-          <button className="mt-3 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full">
-            <a
-              href={`https://res.cloudinary.com/dynugozpy/image/upload/l_text:Sawarabi%20Gothic_${
-                this.state.fontSize
-              }_${this.state.bold}:${
-                this.state.text
-              },co_rgb:333,w_500,c_fit/v1560056946/Dinamic_OGP_t8joyp.png`}
-              className="text-white"
-              download
-            >
+          <a
+            href={`https://res.cloudinary.com/dynugozpy/image/upload/l_text:Sawarabi%20Gothic_${
+              this.state.fontSize
+            }_${this.state.bold}:${
+              this.state.text
+            },co_rgb:333,w_500,c_fit/v1560056946/Dinamic_OGP_t8joyp.png`}
+            className="text-white"
+            download
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <button className="mt-3 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full">
               Download
-            </a>
-          </button>
+            </button>
+          </a>
         </div>
       </Fragment>
     );
@@ -166,7 +183,7 @@ class App extends Component {
           </div>
         </div>
         <div className="mt-3 max-w-4xl mx-auto">
-          <input
+          <textarea
             className="shadow w-full border rounded py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
             id="username"
             type="text"
@@ -174,6 +191,7 @@ class App extends Component {
             onChange={this.onChange}
             name="text"
             value={text}
+            rows="5"
           />
         </div>
         <div className="mt-5 text-center">
