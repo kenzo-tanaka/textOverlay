@@ -110,14 +110,14 @@ class App extends Component {
       <Fragment>
         <div className="card-scroll flex overflow-x-auto">
           <img
-            className="mt-5 mb-5 mr-3 ml-3 w-full shadow"
+            className="mt-5 mb-5 mr-3 shadow"
             src={this.state.defaultImg}
             alt="defaultImg"
           />
           <img
             src="https://res.cloudinary.com/dynugozpy/image/upload/v1561603540/dynamic_ogp02_tsxcmc.png"
             alt="defalut_img02"
-            className=" mt-5 mb-5 shadow pointer"
+            className=" mt-5 mb-5 shadow"
           />
         </div>
       </Fragment>
@@ -127,7 +127,7 @@ class App extends Component {
         {this.state.text.includes("\n") ? (
           <div className="card-scroll flex overflow-x-auto">
             <img
-              className="mt-5 mb-5 ml-3 mr-3 w-full shadow"
+              className="mt-5 mb-5 mr-3  shadow image-resizer"
               src={`https://res.cloudinary.com/dynugozpy/image/upload/l_text:Sawarabi%20Gothic_${
                 this.state.fontSize
               }_${this.state.bold}:${
@@ -138,13 +138,13 @@ class App extends Component {
             <img
               src={this.state.Img02}
               alt="defalut_img02"
-              className=" mt-5 mb-5 shadow pointer"
+              className=" mt-5 mb-5 shadow image-resizer"
             />
           </div>
         ) : (
           <div className="card-scroll flex overflow-x-auto">
             <img
-              className="mt-5 mb-5 ml-3 mr-3 shadow"
+              className="mt-5 mb-5 mr-3 shadow w-auto image-resizer"
               src={`https://res.cloudinary.com/dynugozpy/image/upload/l_text:Sawarabi%20Gothic_${
                 this.state.fontSize
               }_${this.state.bold}:${
@@ -155,7 +155,7 @@ class App extends Component {
             <img
               src={this.state.Img02}
               alt="defalut_img02"
-              className=" mt-5 mb-5 shadow pointer"
+              className=" mt-5 mb-5 shadow image-resizer"
             />
           </div>
         )}
@@ -188,6 +188,9 @@ class App extends Component {
               Large
             </span>
           </div>
+        </div>
+        <div className="float-right inline-block mt-4">
+          <p className="text-muted">画像は右クリックからダウンロードできます</p>
         </div>
       </Fragment>
     );
