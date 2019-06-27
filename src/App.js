@@ -17,17 +17,43 @@ class App extends Component {
     fontSize: "50",
     smallel: "bg-white",
     largeel: "bg-white", // 25 50 70
-    replacedText: ""
+    replacedText: "",
+    defaultImg:
+      "https://res.cloudinary.com/dynugozpy/image/upload/v1560056946/Dinamic_OGP_t8joyp.png",
+    Img02:
+      "https://res.cloudinary.com/dynugozpy/image/upload/l_text:Sawarabi%20Gothic_50_:welcome!,co_rgb:333,w_500,c_fit/v1561603540/dynamic_ogp02_tsxcmc.png"
   };
 
   onChange = e => {
     let text = e.target.value;
-    let replacedText;
+    const Img02_url = this.state.Img02.split("/"); // / で区切られた配列で返す
+
+    // 改行を含むかどうかで条件分岐
     if (text.includes("\n")) {
-      replacedText = text.replace(/\n/g, "%0A");
-      this.setState({ text: text, replacedText: replacedText });
+      let replacedText = text.replace(/\n/g, "%0A");
+      Img02_url.splice(
+        6,
+        1,
+        `l_text:Sawarabi%20Gothic_${this.state.fontSize}_${
+          this.state.bold
+        }:${replacedText},co_rgb:333,w_500,c_fit`
+      ); //配列指定箇所置換
+      let textImg02_url = Img02_url.join("/"); // 結合する
+      this.setState({
+        text: text,
+        replacedText: replacedText,
+        Img02: textImg02_url
+      });
     } else {
-      this.setState({ text });
+      Img02_url.splice(
+        6,
+        1,
+        `l_text:Sawarabi%20Gothic_${this.state.fontSize}_${
+          this.state.bold
+        }:${text},co_rgb:333,w_500,c_fit`
+      ); //配列指定箇所置換
+      let textImg02_url = Img02_url.join("/"); // 結合する
+      this.setState({ text, Img02: textImg02_url });
     }
   };
 
@@ -82,69 +108,79 @@ class App extends Component {
   render() {
     const defaultImgNode = (
       <Fragment>
-        <img
-          className="w-full shadow"
-          src="https://res.cloudinary.com/dynugozpy/image/upload/v1560056946/Dinamic_OGP_t8joyp.png"
-          alt="defaultImg"
-        />
-        <div className="text-right">
-          <button
-            className="mt-3 bg-blue-500 text-white font-bold py-2 px-4 rounded-full opacity-50 cursor-not-allowed"
-            disabled
-          >
-            Download
-          </button>
+        <div className="card-scroll flex overflow-x-auto">
+          <img
+            className="mt-5 mb-5 mr-3 ml-3 w-full shadow"
+            src={this.state.defaultImg}
+            alt="defaultImg"
+          />
+          <img
+            src="https://res.cloudinary.com/dynugozpy/image/upload/v1561603540/dynamic_ogp02_tsxcmc.png"
+            alt="defalut_img02"
+            className=" mt-5 mb-5 shadow pointer"
+          />
         </div>
       </Fragment>
     );
     const textImgNode = (
       <Fragment>
         {this.state.text.includes("\n") ? (
-          <img
-            className="w-full shadow"
-            src={`https://res.cloudinary.com/dynugozpy/image/upload/l_text:Sawarabi%20Gothic_${
-              this.state.fontSize
-            }_${this.state.bold}:${
-              this.state.replacedText
-            },co_rgb:333,w_500,c_fit/v1560056946/Dinamic_OGP_t8joyp.png`}
-            alt="defaultImg"
-          />
+          <div className="card-scroll flex overflow-x-auto">
+            <img
+              className="mt-5 mb-5 ml-3 mr-3 w-full shadow"
+              src={`https://res.cloudinary.com/dynugozpy/image/upload/l_text:Sawarabi%20Gothic_${
+                this.state.fontSize
+              }_${this.state.bold}:${
+                this.state.replacedText
+              },co_rgb:333,w_500,c_fit/v1560056946/Dinamic_OGP_t8joyp.png`}
+              alt="defaultImg"
+            />
+            <img
+              src={this.state.Img02}
+              alt="defalut_img02"
+              className=" mt-5 mb-5 shadow pointer"
+            />
+          </div>
         ) : (
-          <img
-            className="w-full shadow"
-            src={`https://res.cloudinary.com/dynugozpy/image/upload/l_text:Sawarabi%20Gothic_${
-              this.state.fontSize
-            }_${this.state.bold}:${
-              this.state.text
-            },co_rgb:333,w_500,c_fit/v1560056946/Dinamic_OGP_t8joyp.png`}
-            alt="defaultImg"
-          />
+          <div className="card-scroll flex overflow-x-auto">
+            <img
+              className="mt-5 mb-5 ml-3 mr-3 shadow"
+              src={`https://res.cloudinary.com/dynugozpy/image/upload/l_text:Sawarabi%20Gothic_${
+                this.state.fontSize
+              }_${this.state.bold}:${
+                this.state.text
+              },co_rgb:333,w_500,c_fit/v1560056946/Dinamic_OGP_t8joyp.png`}
+              alt="defaultImg"
+            />
+            <img
+              src={this.state.Img02}
+              alt="defalut_img02"
+              className=" mt-5 mb-5 shadow pointer"
+            />
+          </div>
         )}
 
         {/* Handle fontWeight , size */}
         <div className="text-left inline-block">
           <div className="py-4">
             <span
-              style={{ cursor: "pointer" }}
               onClick={this.handleFontWeight}
-              className={`inline-block rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-1 ${
+              className={`inline-block rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-1 pointer ${
                 this.state.boldel
               }`}
             >
               Bold
             </span>
             <span
-              style={{ cursor: "pointer" }}
               onClick={this.handleToSmall}
-              className={`inline-block rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-1 ${
+              className={`inline-block rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-1 pointer ${
                 this.state.smallel
               }`}
             >
               Small
             </span>
             <span
-              style={{ cursor: "pointer" }}
-              className={`inline-block rounded-full px-3 py-1 text-sm font-semibold text-gray-700 ${
+              className={`inline-block rounded-full px-3 py-1 text-sm font-semibold text-gray-700 pointer ${
                 this.state.largeel
               }`}
               onClick={this.handleToLarge}
@@ -152,24 +188,6 @@ class App extends Component {
               Large
             </span>
           </div>
-        </div>
-        <div className="inline-block float-right">
-          <a
-            href={`https://res.cloudinary.com/dynugozpy/image/upload/l_text:Sawarabi%20Gothic_${
-              this.state.fontSize
-            }_${this.state.bold}:${
-              this.state.text
-            },co_rgb:333,w_500,c_fit/v1560056946/Dinamic_OGP_t8joyp.png`}
-            className="text-white"
-            download="test.png"
-            onClick={this.handleDownload}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <button className="mt-3 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full">
-              Download
-            </button>
-          </a>
         </div>
       </Fragment>
     );
