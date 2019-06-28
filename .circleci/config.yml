@@ -2,13 +2,12 @@ version: 2
 jobs:
   deploy:
     docker:
-      - image: circleci/node:8
-    working_directory: ~/workspace
+      - image: circleci/node:10.7
     steps:
       - checkout
       - run: npm install
-      - run: npm run build
-      - run: firebase deploy --token=$FIREBASE_TOKEN
+      - run: npm run build:css && react-scripts build
+      - run: ./node_modules/.bin/firebase deploy --token=$FIREBASE_TOKEN
 
 workflows:
   version: 2
