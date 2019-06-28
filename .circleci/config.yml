@@ -10,7 +10,7 @@ jobs:
           command: npm install
       - run:
           name: build
-          command: npm run build:css && react-scripts build
+          command: npm run build
       - run:
           name: deploy to Firebase Hosting
           command: firebase deploy --token=$FIREBASE_TOKEN
