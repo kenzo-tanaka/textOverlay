@@ -1,0 +1,20 @@
+version: 2
+jobs:
+  deploy:
+    docker:
+      - image: circleci/node:8
+    working_directory: ~/workspace
+    steps:
+      - checkout
+      - run: npm install
+      - run: npm run build
+      - run: firebase deploy --token=$FIREBASE_TOKEN
+
+workflows:
+  version: 2
+  deploy:
+    jobs:
+      - deploy:
+        filters:
+          branches:
+            only: master
