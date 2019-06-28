@@ -110,14 +110,14 @@ class App extends Component {
       <Fragment>
         <div className="card-scroll flex overflow-x-auto">
           <img
-            className="mt-5 mb-5 mr-3 shadow"
+            className="mt-5 mb-5 mr-3 shadow image-resizer"
             src={this.state.defaultImg}
             alt="defaultImg"
           />
           <img
             src="https://res.cloudinary.com/dynugozpy/image/upload/v1561603540/dynamic_ogp02_tsxcmc.png"
             alt="defalut_img02"
-            className=" mt-5 mb-5 shadow"
+            className=" mt-5 mb-5 shadow image-resizer"
           />
         </div>
       </Fragment>
@@ -144,7 +144,7 @@ class App extends Component {
         ) : (
           <div className="card-scroll flex overflow-x-auto">
             <img
-              className="mt-5 mb-5 mr-3 shadow w-auto image-resizer"
+              className="mt-5 mb-5 mr-3 shadow w-auto image-resizer "
               src={`https://res.cloudinary.com/dynugozpy/image/upload/l_text:Sawarabi%20Gothic_${
                 this.state.fontSize
               }_${this.state.bold}:${
@@ -217,7 +217,7 @@ class App extends Component {
             rows="3"
           />
         </div>
-        <div className="mt-5 text-center">
+        <div className="mt-5 mb-4 text-center">
           <FacebookShareButton
             className="d-inline-block mr-4 pointer"
             url={window.location.href}
