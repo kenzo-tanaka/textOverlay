@@ -7,10 +7,10 @@ jobs:
       - checkout
       - run:
           name: npm install
-          command: npm run build:css && react-scripts build
+          command: npm install
       - run:
           name: build
-          command: npm run build
+          command: npm run build:css && react-scripts build
       - run:
           name: deploy to Firebase Hosting
           command: firebase deploy --token=$FIREBASE_TOKEN
